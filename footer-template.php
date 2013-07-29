@@ -29,8 +29,8 @@ Template Name: Footer Template
 
 <?php
 if($_GET['action'] == 'signup'){  
-    mysql_connect('localhost','YOUR DB USERNAME','YOUR DB PASSWORD');    
-    mysql_select_db('parker_');  
+    mysql_connect('localhost','parker_emailform','email');    
+    mysql_select_db('parker_subscribers');  
     $email = mysql_real_escape_string($_POST['signup-email']);  
   
     //validate email address - check if input was empty  
@@ -38,7 +38,7 @@ if(empty($email)){
     $status = 'error';  
     $message = 'You did not enter an email address!';  
 }  
-else if(!preg_match($emailRegex, $email)){ //validate email address - check if is a valid email address  
+else if(!filter_var($email, FILTER_VALIDATE_EMAIL)){ //validate email address - check if is a valid email address  
     $status = 'error';  
     $message = 'You have entered an invalid email address!';  
 }  
